@@ -5,7 +5,7 @@
 
 ## Overview
 
-Undetected GeckoDriver is a wrapper around Selenium's `webdriver.Firefox` that patches the driver to bypass detection mechanisms used by various web services. This package is designed to be a drop-in replacement for Selenium's `webdriver.Firefox` and can be used in the same way.
+Undetected GeckoDriver is a wrapper around Selenium's `webdriver.Firefox` class. It patches the Firefox binary to bypass detection mechanisms used by services like Cloudflare, Distil Networks, Imperva, and more. This package is intended for use with Selenium to automate web browsing tasks without being detected as a bot. It serves as a drop-in replacement for Selenium's `webdriver.Firefox` and can be used in the same way.
 
 ## Installation
 
