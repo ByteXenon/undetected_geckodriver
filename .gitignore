@@ -6,6 +6,8 @@
 *.so
 *.vscode
 *.history
+*workspace*
 *build*
 *egg-info*
 build
+dist
