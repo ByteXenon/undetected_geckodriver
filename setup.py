@@ -9,6 +9,12 @@
     Author: Bytexenon (https://github.com/Bytexenon)
 """
 
+# Imports #
+import os
+
+from setuptools import setup
+from undetected_geckodriver import __version__
+
 # Constants #
 DIRNAME     = os.path.dirname(__file__)
 DESCRIPTION = (
@@ -16,12 +22,6 @@ DESCRIPTION = (
   "Can bypass Cloudflare/hCaptcha/etc. detections."
 )
 LONG_DESC   = open(os.path.join(DIRNAME, "README.md")).read()
-
-# Imports #
-import os
-
-from setuptools import setup
-from undetected_geckodriver import __version__
 
 # Setup #
 setup(
