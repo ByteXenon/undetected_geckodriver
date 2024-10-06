@@ -1,0 +1,11 @@
+*__pycache__*
+*.pyc
+*.tmp
+*.log
+*.o
+*.so
+*.vscode
+*.history
+*build*
+*egg-info*
+build
