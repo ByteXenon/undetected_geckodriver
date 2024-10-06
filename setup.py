@@ -32,7 +32,7 @@ setup(
         "selenium>=4.10.0"
     ],
     include_package_data=True,
-    description='A custom Firefox WebDriver that attempts to avoid detection by web services.',
+    description=DESCRIPTION,
     long_description=LONG_DESC,
     long_description_content_type='text/markdown',
     author='ByteXenon',
