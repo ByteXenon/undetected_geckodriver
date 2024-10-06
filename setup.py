@@ -11,9 +11,9 @@
 
 # Imports #
 import os
+import re
 
 from setuptools import setup
-from undetected_geckodriver import __version__
 
 # Constants #
 DIRNAME     = os.path.dirname(__file__)
@@ -23,10 +23,18 @@ DESCRIPTION = (
 )
 LONG_DESC   = open(os.path.join(DIRNAME, "README.md")).read()
 
+# Read the version from the __init__.py file #
+with open(os.path.join(DIRNAME, 'undetected_geckodriver', '__init__.py')) as f:
+    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
+    if version_match:
+        version = version_match.group(1)
+    else:
+        raise RuntimeError("Unable to find version string.")
+
 # Setup #
 setup(
     name='undetected-geckodriver',
-    version=__version__,
+    version=version,
     packages=['undetected_geckodriver'],
     install_requires=[
         "selenium>=4.10.0"
