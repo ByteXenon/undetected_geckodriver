@@ -18,8 +18,8 @@ from undetected_geckodriver import __version__
 # Constants #
 DIRNAME     = os.path.dirname(__file__)
 DESCRIPTION = (
-  "A custom Firefox WebDriver that attempts to avoid detection by web services.",
-  "Can bypass Cloudflare/hCaptcha/etc. detections."
+    "A Firefox Selenium WebDriver that patches the browser to avoid detection.",
+    "Bypasses services such as Cloudflare, Distil Networks, and more."
 )
 LONG_DESC   = open(os.path.join(DIRNAME, "README.md")).read()
 
@@ -33,6 +33,8 @@ setup(
     ],
     include_package_data=True,
     description='A custom Firefox WebDriver that attempts to avoid detection by web services.',
+    long_description=LONG_DESC,
+    long_description_content_type='text/markdown',
     author='ByteXenon',
     author_email='ddavi142@asu.edu',
     url='https://github.com/ByteXenon/undetected_geckodriver',
@@ -40,6 +42,8 @@ setup(
         'Development Status :: 3 - Alpha',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Testing',
+        'Topic :: Software Development :: Libraries :: Python Modules',
+        'Framework :: Selenium',
         'Programming Language :: Python :: 3',
         'Programming Language :: Python :: 3.6',
         'Programming Language :: Python :: 3.7',
@@ -53,9 +57,9 @@ setup(
         'Documentation': 'https://github.com/ByteXenon/undetected_geckodriver#readme',
         'Source': 'https://github.com/ByteXenon/undetected_geckodriver',
         'Tracker': 'https://github.com/ByteXenon/undetected_geckodriver/issues',
+        'Changelog': 'https://github.com/ByteXenon/undetected_geckodriver/releases',
     },
-    long_description=LONG_DESC,
-    long_description_content_type='text/markdown',
+    keywords='selenium firefox webdriver undetected bypass cloudflare distil',
     python_requires='>=3.6',
-    License='MIT',
+    license='MIT',
 )
