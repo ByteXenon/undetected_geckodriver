@@ -49,6 +49,11 @@ setup(
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
+    project_urls={
+        'Documentation': 'https://github.com/ByteXenon/undetected_geckodriver#readme',
+        'Source': 'https://github.com/ByteXenon/undetected_geckodriver',
+        'Tracker': 'https://github.com/ByteXenon/undetected_geckodriver/issues',
+    },
     long_description=LONG_DESC,
     long_description_content_type='text/markdown',
     python_requires='>=3.6',
