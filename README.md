@@ -12,7 +12,7 @@ Undetected GeckoDriver is a wrapper around Selenium's `webdriver.Firefox` that p
 You can install the package via pip:
 
 ```bash
-pip install undetected_geckodriver
+pip install undetected-geckodriver
 ```
 
 ## Usage
