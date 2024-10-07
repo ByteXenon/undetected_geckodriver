@@ -3,7 +3,7 @@ import os
 import sys
 from selenium import webdriver
 
-from .constants import REPLACEMENT_STRING, TO_REPLACE_STRING, SELENIUM_CONFIG_PATHS
+from .constants import REPLACEMENT_STRING, TO_REPLACE_STRING, UNDETECTED_FIREFOX_PATHS
 
 
 # Functions #
@@ -18,22 +18,18 @@ def get_firefox_installation_path() -> str:
     return firefox_path
 
 
-def get_selenium_configuration_path() -> str:
-    os_type = sys.platform
-    if os_type not in SELENIUM_CONFIG_PATHS:
-        raise FileNotFoundError(f"Unsupported platform: {os_type}")
+def get_undetected_firefox_path() -> str:
+    system = sys.platform
+    login = os.getlogin()
+    if system not in UNDETECTED_FIREFOX_PATHS:
+        raise OSError(f"Unsupported system: {system}")
 
-    for directory in SELENIUM_CONFIG_PATHS[os_type]:
-        directory = directory.replace("$USER", os.getlogin())
-        if os.path.exists(directory):
-            return directory
-
-    raise FileNotFoundError("Could not find the Selenium config path")
+    path = UNDETECTED_FIREFOX_PATHS[system].replace("$USER", login)
+    return path
 
 
-def create_undetected_firefox_directory(firefox_path: str, selenium_config_path: str) -> str:
-    undetected_path = os.path.join(selenium_config_path, "undetected_firefox")
-    #if os.path.exists(undetected_path):
+def create_undetected_firefox_directory(firefox_path: str, undetected_path: str) -> str:
+    # if os.path.exists(undetected_path):
     #    os.system(f"rm -rf {undetected_path}")
 
     if not os.path.exists(undetected_path):

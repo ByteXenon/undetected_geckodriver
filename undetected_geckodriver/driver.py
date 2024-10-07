@@ -11,8 +11,8 @@ from .mixins import WebDriverMixin
 from .utils  import (
     get_webdriver_instance,
     get_firefox_installation_path,
-    get_selenium_configuration_path,
     create_undetected_firefox_directory,
+    get_undetected_firefox_path,
     patch_libxul_file,
 )
 
@@ -28,10 +28,9 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
         self.webdriver = get_webdriver_instance()
 
         self._firefox_path = get_firefox_installation_path()
-        self._selenium_config_path = get_selenium_configuration_path()
-        self._undetected_path = create_undetected_firefox_directory(
-            self._firefox_path, self._selenium_config_path
-        )
+        self._undetected_path = get_undetected_firefox_path()
+
+        create_undetected_firefox_directory(self._firefox_path, self._undetected_path)
         patch_libxul_file(self._undetected_path)
 
         self.service = service if service else Service()
