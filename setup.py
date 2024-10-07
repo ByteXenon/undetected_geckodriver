@@ -12,29 +12,28 @@
 # Imports #
 import os
 import re
-
 from setuptools import setup
 
 # Constants #
 DIRNAME     = os.path.dirname(__file__)
 DESCRIPTION = (
-    "A Firefox Selenium WebDriver that patches the browser to avoid detection.",
+    "A Firefox Selenium WebDriver that patches the browser to avoid detection. "
     "Bypasses services such as Cloudflare, Distil Networks, and more."
 )
 LONG_DESC   = open(os.path.join(DIRNAME, "README.md")).read()
 
 # Read the version from the __init__.py file #
-with open(os.path.join(DIRNAME, 'undetected_geckodriver', '__init__.py')) as f:
-    version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
-    if version_match:
-        version = version_match.group(1)
-    else:
+def find_version():
+    with open(os.path.join(DIRNAME, 'undetected_geckodriver', '__init__.py'), encoding="utf-8") as f:
+        version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
+        if version_match:
+            return version_match.group(1)
         raise RuntimeError("Unable to find version string.")
 
 # Setup #
 setup(
     name='undetected-geckodriver',
-    version=version,
+    version=find_version(),
     packages=['undetected_geckodriver'],
     install_requires=[
         "selenium>=4.10.0"
