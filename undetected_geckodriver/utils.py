@@ -1,8 +1,9 @@
 # Imports #
 import os
 import sys
-from selenium import webdriver
+import shutil
 
+from selenium import webdriver
 from .constants import REPLACEMENT_STRING, TO_REPLACE_STRING, UNDETECTED_FIREFOX_PATHS
 
 
@@ -29,12 +30,8 @@ def get_undetected_firefox_path() -> str:
 
 
 def create_undetected_firefox_directory(firefox_path: str, undetected_path: str) -> str:
-    # if os.path.exists(undetected_path):
-    #    os.system(f"rm -rf {undetected_path}")
-
     if not os.path.exists(undetected_path):
-        os.makedirs(undetected_path, exist_ok=True)
-        os.system(f"cp -r {firefox_path}/* {undetected_path}")
+        shutil.copytree(firefox_path, undetected_path)
     return undetected_path
 
 
