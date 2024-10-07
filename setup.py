@@ -18,7 +18,8 @@ from setuptools import setup
 DIRNAME     = os.path.dirname(__file__)
 DESCRIPTION = (
     "A Firefox Selenium WebDriver that patches the browser to avoid detection. "
-    "Bypasses services such as Cloudflare, Distil Networks, and more."
+    "Bypasses services such as Cloudflare, Distil Networks, and more. "
+    "Ideal for web scraping, automated testing, and bot development without getting detected."
 )
 LONG_DESC   = open(os.path.join(DIRNAME, "README.md")).read()
 
@@ -46,7 +47,7 @@ setup(
     author_email='ddavi142@asu.edu',
     url='https://github.com/ByteXenon/undetected_geckodriver',
     classifiers=[
-        'Development Status :: 3 - Alpha',
+        'Development Status :: 4 - Beta',
         'Intended Audience :: Developers',
         'Topic :: Software Development :: Testing',
         'Topic :: Software Development :: Libraries :: Python Modules',
@@ -56,6 +57,8 @@ setup(
         'Programming Language :: Python :: 3.8',
         'Programming Language :: Python :: 3.9',
         'Programming Language :: Python :: 3.10',
+        'Programming Language :: Python :: 3.11',
+        'Programming Language :: Python :: 3.12',
         'License :: OSI Approved :: MIT License',
         'Operating System :: OS Independent',
     ],
@@ -65,7 +68,11 @@ setup(
         'Tracker': 'https://github.com/ByteXenon/undetected_geckodriver/issues',
         'Changelog': 'https://github.com/ByteXenon/undetected_geckodriver/releases',
     },
-    keywords='selenium firefox webdriver undetected bypass cloudflare distil',
+    keywords=(
+        'selenium firefox webdriver undetected bypass cloudflare distil '
+        'web scraping automated testing bot development anti-detection '
+        'automation browser automation'
+    ),
     python_requires='>=3.6',
     license='MIT',
 )
