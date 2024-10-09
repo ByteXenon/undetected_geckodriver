@@ -11,6 +11,8 @@ jobs:
     steps:
     - name: Checkout code
       uses: actions/checkout@v4
+      with:
+        fetch-depth: 0
     - name: Set up Python
       uses: actions/setup-python@v5
       with:
@@ -21,6 +23,9 @@ jobs:
         pip install -r requirements.txt
     - name: Update README.md and commit changes
       run: |
+        export BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
+        git fetch origin
+        git checkout $BRANCH_NAME
         export VERSION=$(python -c 'from undetected_geckodriver import __version__; print(__version__)')
         echo $VERSION
         sed -i "s/v[0-9]*\.[0-9]*\.[0-9]*/v${VERSION}/" README.md
@@ -28,4 +33,4 @@ jobs:
         git config --global user.email 'github-actions[bot]@users.noreply.github.com'
         git add README.md
         git commit -m "chore: bump version in README.md to v${VERSION}"
-        git push
+        git push origin $BRANCH_NAME
