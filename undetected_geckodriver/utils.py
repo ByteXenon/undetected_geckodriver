@@ -51,3 +51,13 @@ def patch_libxul_file(undetected_path: str) -> None:
     libxul_data = libxul_data.replace(TO_REPLACE_STRING, REPLACEMENT_STRING)
     with open(libxul_path, "wb") as file:
         file.write(libxul_data)
+
+
+def _get_platform_dependent_params() -> dict:
+    match sys.platform:
+        case "win32":
+            return {"firefox_exec": "firefox.exe", "firefox_path": "C:\\Program Files\\Mozilla Firefox", "xul": "xul.dll"}
+        case "darwin":
+            return {"firefox_exec": "Firefox.app", "firefox_path": "/Applications/Firefox.app/Contents/MacOS", "xul": "libxul.dylib"}
+        case _:
+            return {"firefox_exec": "firefox", "firefox_path": "/usr/lib/firefox", "xul": "libxul.so"}
