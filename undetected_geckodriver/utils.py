@@ -13,7 +13,7 @@ def get_webdriver_instance() -> webdriver.Firefox:
 
 
 def get_firefox_installation_path() -> str:
-    firefox_path = "/usr/lib/firefox"
+    firefox_path = _get_platform_dependent_params()["firefox_path"]
     if not os.path.exists(firefox_path):
         raise FileNotFoundError("Could not find the Firefox path")
     return firefox_path
@@ -36,9 +36,10 @@ def create_undetected_firefox_directory(firefox_path: str, undetected_path: str)
 
 
 def patch_libxul_file(undetected_path: str) -> None:
-    libxul_path = os.path.join(undetected_path, "libxul.so")
+    xul = _get_platform_dependent_params()["xul"]
+    libxul_path = os.path.join(undetected_path, xul)
     if not os.path.exists(libxul_path):
-        raise FileNotFoundError("Could not find libxul.so (What the hell?!)")
+        raise FileNotFoundError(f"Could not find {xul} (What the hell?!)")
 
     if len(REPLACEMENT_STRING) != len(TO_REPLACE_STRING):
         raise ValueError(

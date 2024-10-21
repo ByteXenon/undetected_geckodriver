@@ -14,6 +14,7 @@ from .utils  import (
     create_undetected_firefox_directory,
     get_undetected_firefox_path,
     patch_libxul_file,
+    _get_platform_dependent_params
 )
 
 # Main class #
@@ -35,7 +36,7 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
 
         self.service = service if service else Service()
         options = options if options else Options()
-        options.binary_location = os.path.join(self._undetected_path, "firefox")
+        options.binary_location = os.path.join(self._undetected_path, _get_platform_dependent_params()["firefox_exec"])
 
         finder = DriverFinder(self.service, options)
 
