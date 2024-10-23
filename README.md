@@ -1,4 +1,4 @@
-# Undetected GeckoDriver v1.0.1
+# Undetected GeckoDriver v1.0.4
 
 [![PyPI version](https://badge.fury.io/py/undetected-geckodriver.svg)](https://badge.fury.io/py/undetected-geckodriver)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
