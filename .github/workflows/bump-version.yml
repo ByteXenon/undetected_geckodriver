@@ -24,7 +24,7 @@ jobs:
     - name: Update README.md and commit changes
       run: |
         export BRANCH_NAME=$(echo ${GITHUB_REF#refs/heads/})
-        git fetch origin
+        git fetch origin $BRANCH_NAME
         git checkout $BRANCH_NAME
         export VERSION=$(python -c 'from undetected_geckodriver import __version__; print(__version__)')
         echo $VERSION
