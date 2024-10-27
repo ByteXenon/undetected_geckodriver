@@ -1,11 +1,12 @@
 # Imports #
 import os
+import platform
 import shutil
 import sys
 
 from selenium import webdriver
 
-from .constants import REPLACEMENT_STRING, TO_REPLACE_STRING, UNDETECTED_FIREFOX_PATHS
+from .constants import PLATFORM_DEPENDENT_PARAMS, REPLACEMENT_STRING, TO_REPLACE_STRING
 
 
 # Functions #
@@ -56,22 +57,8 @@ def patch_libxul_file(undetected_path: str) -> None:
 
 
 def _get_platform_dependent_params() -> dict:
-    match sys.platform:
-        case "win32":
-            return {
-                "firefox_exec": "firefox.exe",
-                "firefox_path": "C:\\Program Files\\Mozilla Firefox",
-                "xul": "xul.dll",
-            }
-        case "darwin":
-            return {
-                "firefox_exec": "Firefox.app",
-                "firefox_path": "/Applications/Firefox.app/Contents/MacOS",
-                "xul": "libxul.dylib",
-            }
-        case _:
-            return {
-                "firefox_exec": "firefox",
-                "firefox_path": "/usr/lib/firefox",
-                "xul": "libxul.so",
-            }
+    system = platform.system()
+    if system not in PLATFORM_DEPENDENT_PARAMS:
+        raise OSError(f"Unsupported system: {system}")
+
+    return PLATFORM_DEPENDENT_PARAMS[system]
