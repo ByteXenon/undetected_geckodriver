@@ -2,20 +2,21 @@
 import os
 
 from selenium.webdriver.common.driver_finder import DriverFinder
-from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.remote_connection import FirefoxRemoteConnection
 from selenium.webdriver.firefox.service import Service
+from selenium.webdriver.remote.webdriver import WebDriver as RemoteWebDriver
 
 from .mixins import WebDriverMixin
-from .utils  import (
-    get_webdriver_instance,
-    get_firefox_installation_path,
+from .utils import (
+    _get_platform_dependent_params,
     create_undetected_firefox_directory,
+    get_firefox_installation_path,
     get_undetected_firefox_path,
+    get_webdriver_instance,
     patch_libxul_file,
-    _get_platform_dependent_params
 )
+
 
 # Main class #
 class Firefox(RemoteWebDriver, WebDriverMixin):
@@ -36,7 +37,9 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
 
         self.service = service if service else Service()
         options = options if options else Options()
-        options.binary_location = os.path.join(self._undetected_path, _get_platform_dependent_params()["firefox_exec"])
+        options.binary_location = os.path.join(
+            self._undetected_path, _get_platform_dependent_params()["firefox_exec"]
+        )
 
         finder = DriverFinder(self.service, options)
 

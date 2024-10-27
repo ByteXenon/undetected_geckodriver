@@ -1,6 +1,6 @@
 # Constants #
-TO_REPLACE_STRING     = b'webdriver'
-REPLACEMENT_STRING    = b'1337river'
+TO_REPLACE_STRING = b"webdriver"
+REPLACEMENT_STRING = b"1337river"
 
 UNDETECTED_FIREFOX_PATHS = {
     "linux": "/home/$USER/.cache/undetected_firefox/",
