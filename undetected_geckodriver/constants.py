@@ -1,6 +1,5 @@
 # Constants #
 TO_REPLACE_STRING = b"webdriver"
-REPLACEMENT_STRING = b"1337river"
 
 PLATFORM_DEPENDENT_PARAMS = {
     "Windows": {

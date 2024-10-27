@@ -1,12 +1,14 @@
 # Imports #
 import os
 import platform
+import random
 import shutil
+import string
 import sys
 
 from selenium import webdriver
 
-from .constants import PLATFORM_DEPENDENT_PARAMS, REPLACEMENT_STRING, TO_REPLACE_STRING
+from .constants import PLATFORM_DEPENDENT_PARAMS, TO_REPLACE_STRING
 
 
 # Functions #
@@ -41,17 +43,13 @@ def patch_libxul_file(undetected_path: str) -> None:
     xul = get_platform_dependent_params()["xul"]
     libxul_path = os.path.join(undetected_path, xul)
     if not os.path.exists(libxul_path):
-        raise FileNotFoundError(f"Could not find {xul} (What the hell?!)")
+        raise FileNotFoundError(f"Could not find the {xul} file")
 
-    if len(REPLACEMENT_STRING) != len(TO_REPLACE_STRING):
-        raise ValueError(
-            "The length of REPLACEMENT_STRING must be equal to the length of TO_REPLACE_STRING"
-        )
-
+    replacement_string = generate_random_string(len(TO_REPLACE_STRING))
     libxul_data = None
     with open(libxul_path, "rb") as file:
         libxul_data = file.read()
-    libxul_data = libxul_data.replace(TO_REPLACE_STRING, REPLACEMENT_STRING)
+    libxul_data = libxul_data.replace(TO_REPLACE_STRING, replacement_string)
     with open(libxul_path, "wb") as file:
         file.write(libxul_data)
 
@@ -62,3 +60,9 @@ def get_platform_dependent_params() -> dict:
         raise OSError(f"Unsupported system: {system}")
 
     return PLATFORM_DEPENDENT_PARAMS[system]
+
+
+def generate_random_string(length: int) -> str:
+    return "".join(
+        random.choice(string.ascii_letters + string.digits) for _ in range(length)
+    )
