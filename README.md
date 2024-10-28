@@ -2,7 +2,7 @@
 
 # Undetected GeckoDriver v1.0.4
 
-A Python package that acts as an interface between your code and Selenium, preventing detection by services like Cloudflare.
+A Python package that integrates with Firefox Selenium to bypass anti-bot detection mechanisms, ideal for web scraping, automated testing, and browser automation without being marked as a bot.
 
 [![PyPI version](https://badge.fury.io/py/undetected-geckodriver.svg)](https://badge.fury.io/py/undetected-geckodriver)
 [![License: MIT](https://img.shields.io/badge/License-MIT-yellow.svg)](https://opensource.org/licenses/MIT)
@@ -12,14 +12,35 @@ A Python package that acts as an interface between your code and Selenium, preve
 
 </div>
 
+## Preview
+
+<details>
+  <summary>Click to see the preview</summary>
+
+  <div style="text-align: center;">
+    <h4>With undetected-geckodriver:</h4>
+    <img src="https://github.com/user-attachments/assets/24a208c0-4793-4d5d-bf3c-22e3a1beb9a4" alt="undetected" width="639" height="468">
+  </div>
+
+  <div style="text-align: center;">
+    <h4>Without undetected-geckodriver:</h4>
+    <img src="https://github.com/user-attachments/assets/927be4df-06d6-4d88-8948-668c35efa68e" alt="undetected" width="639" height="468">
+  </div>
+
+</details>
+
 ## Overview
 
-This project is a Python package that utilizes the [Selenium](https://github.com/SeleniumHQ/selenium) package, a powerful browser automation framework that lets you control your browser through code. When browsers are controlled by scripts (often referred to as "puppet browsers"), they typically set specific properties that can be detected by services like Cloudflare. For instance, properties such as `navigator.webdriver` can be checked using JavaScript scripts, which may restrict access to content on sites protected by such services.
+> **Note:** Currently, this package supports only Linux due to recent issues. I am actively working on making it compatible with other operating systems.
 
-To address this issue, Undetected Geckodriver acts as an interface between your code and Selenium. When you create a new WebDriver instance using the `Firefox()` class from the Undetected GeckoDriver package (as opposed to using Selenium directly), the following processes occur:
+Undetected GeckoDriver is a powerful Python package designed to work seamlessly with the [Selenium](https://github.com/SeleniumHQ/selenium) browser automation framework. Selenium allows you to control web browsers through code, making it an essential tool for web scraping, automated testing, and browser automation. However, when browsers are controlled by scripts (often referred to as "puppet browsers"), they typically set specific properties that can be detected by anti-bot services like Cloudflare. For instance, properties such as `navigator.webdriver` can be checked using JavaScript, which may restrict access to content on sites protected by such services.
 
-1. The original Firefox binary is located, copied, and patched to prevent it modifying properties such as `navigator.webdriver` while using Selenium.
+To address this issue, Undetected GeckoDriver acts as an interface between your code and Selenium, helping you bypass bot detection mechanisms. When you create a new WebDriver instance using the `Firefox()` class from the Undetected GeckoDriver package (as opposed to using Selenium directly), the following processes occur:
+
+1. The original Firefox binary is located, copied, and patched to prevent it from modifying properties such as `navigator.webdriver` while using Selenium.
 2. A Selenium WebDriver instance is created that uses the patched Firefox binary.
+
+This makes it possible to interact with websites without being detected as a bot, allowing you to scrape data, automate tasks, and perform other browser-based operations without triggering bot detection mechanisms. Whether you're involved in web scraping, automated testing, or any other form of browser automation, Undetected GeckoDriver provides a reliable solution to avoid detection and ensure smooth operation.
 
 ## Installation
 
@@ -29,15 +50,15 @@ You can install the package via pip:
 pip install undetected-geckodriver
 ```
 
-Or you can install it from source.
+Or you can install it from source:
 
 ```bash
-git clone https://github.com/ByteXenon/undetected_geckodriver --depth 1
+git clone https://github.com/ByteXenon/undetected_geckodriver
 cd undetected_geckodriver
 pip install .
 ```
 
-Note, that the last example is not supported, and you shouldn't use it unless you want to modify the package.
+> **Note:** The last example is not supported, and you shouldn't use it unless you want to modify the package.
 
 ## Usage
 
@@ -49,49 +70,65 @@ Here are a couple of examples demonstrating how you can use this project:
 
 1. **Creating a new undetected WebDriver instance and navigating to example.com**:
 
-```python
-from undetected_geckodriver import Firefox
+   ```python
+   from undetected_geckodriver import Firefox
 
-driver = Firefox()
-driver.get("https://www.example.com")
-```
+   driver = Firefox()
+   driver.get("https://www.example.com")
+   ```
 
 2. **Searching for "Undetected Geckodriver 1337!" on Google**:
 
-```python
-import time
-from undetected_geckodriver import Firefox
-from selenium.webdriver.common.by import By
+   ```python
+   import time
+   from undetected_geckodriver import Firefox
+   from selenium.webdriver.common.by import By
 
-# Constants
-SEARCH_FOR = "Undetected Geckodriver 1337!"
-GOOGLE_URL = "https://www.google.com"
+   # Constants
+   SEARCH_FOR = "Undetected Geckodriver 1337!"
+   GOOGLE_URL = "https://www.google.com"
 
-# Initialize the undetected Firefox browser
-driver = Firefox()
+   # Initialize the undetected Firefox browser
+   driver = Firefox()
 
-# Navigate to Google
-driver.get(GOOGLE_URL)
+   # Navigate to Google
+   driver.get(GOOGLE_URL)
 
-# Locate the search box and perform the search
-search_box = driver.find_element(By.NAME, "q")  # Find the search box in the DOM (Document Object Model)
-search_box.send_keys(SEARCH_FOR)  # Input the search term
-search_box.submit()  # Submit the search
+   # Locate the search box and perform the search
+   search_box = driver.find_element(By.NAME, "q")
+   search_box.send_keys(SEARCH_FOR)
+   search_box.submit()
 
-# Wait for the page to load
-time.sleep(2)
+   # Wait for the page to load
+   time.sleep(2)
 
-# Print the current URL after the search
-print("Current URL:", driver.current_url)
+   # Print the current URL after the search
+   print("Current URL:", driver.current_url)
 
-# Wait for a while to observe the results
-time.sleep(15)
+   # Wait for a while to observe the results
+   time.sleep(15)
 
-# Ensure the browser is closed
-driver.quit()  # Close the browser
-```
+   # Ensure the browser is closed
+   driver.quit() # Close the browser
+   ```
 
 For further information and advanced usage, you can take a look at the [official Selenium documentation](https://www.selenium.dev/documentation/en/) since Undetected GeckoDriver is built on top of Selenium.
+
+## Roadmap
+
+### Completed
+
+- [x] **Spoof `navigator.webdriver` property**: Implement a method to spoof the `navigator.webdriver` property to prevent detection by services like Cloudflare. This helps in avoiding bot detection mechanisms.
+
+### In Progress
+
+- [ ] **Multi-platform support**: Extend the compatibility of the tool to work seamlessly across different operating systems other than Linux (Windows, macOS). This includes ensuring all dependencies and configurations are platform-independent.
+
+### Planned
+
+- [ ] **Helper functions for passing CAPTCHAs and other security measures**: Develop utility functions to automate the solving of CAPTCHAs and bypass other common security measures encountered during web scraping. (e.g. automatically passing Cloudflare's "I'm human" challenge)
+
+- [ ] **Support for Selenium Wire**: Integrate Selenium Wire to allow for more advanced network interactions, such as modifying requests and responses.
 
 ## Requirements
 
