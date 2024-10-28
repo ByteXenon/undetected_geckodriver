@@ -1,5 +1,5 @@
 # Constants #
-TO_REPLACE_STRING = b"\x00" b"webdriver" b"\x00"
+TO_REPLACE_STRING = b"webdriver"
 
 PLATFORM_DEPENDENT_PARAMS = {
     # Do not remove, the (actual) support for Windows & macOS is coming soon
