@@ -10,7 +10,7 @@
 """
 
 # Version #
-__version__ = "1.0.5"
+__version__ = "1.0.6"
 
 # Imports #
 from .driver import Firefox
