@@ -27,7 +27,7 @@ LONG_DESC = open(os.path.join(DIRNAME, "README.md")).read()
 # Setup #
 setup(
     name="undetected-geckodriver",
-    version="1.0.6",
+    version="1.0.7",
     packages=["undetected_geckodriver"],
     install_requires=["selenium>=4.10.0", "psutil>=5.8.0"],
     include_package_data=True,
