@@ -74,10 +74,10 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
         Normally, it's located in `/usr/lib/firefox`.
         """
 
-        # firefox_paths: list = self._platform_dependent_params["firefox_paths"]
-        # for path in firefox_paths:
-        #    if os.path.exists(path):
-        #        return path
+        firefox_paths: list = self._platform_dependent_params["firefox_paths"]
+        for path in firefox_paths:
+            if os.path.exists(path):
+                return path
 
         # Fixes #4
         # If the first method fails, we can try to find the path by running
