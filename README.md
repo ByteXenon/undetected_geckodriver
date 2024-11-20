@@ -1,6 +1,6 @@
 <div align="center">
 
-# Undetected GeckoDriver v1.0.6
+# Undetected GeckoDriver v1.0.7
 
 A Python package that integrates with Firefox Selenium to bypass anti-bot detection mechanisms, ideal for web scraping, automated testing, and browser automation without being marked as a bot.
 
