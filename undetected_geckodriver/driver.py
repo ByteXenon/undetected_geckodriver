@@ -1,7 +1,9 @@
 # Imports #
 import os
 import shutil
+import time
 
+import psutil
 from selenium.webdriver.common.driver_finder import DriverFinder
 from selenium.webdriver.firefox.options import Options
 from selenium.webdriver.firefox.remote_connection import FirefoxRemoteConnection
@@ -36,7 +38,7 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
 
         self.service: Service = service or Service()
         self.options: Options = options or Options()
-        self.options.binary_location = self._get_binary_location()
+        self.options.binary_location = self._find_platform_dependent_executable()
         self.keep_alive: bool = keep_alive
 
         self._initialize_service()
@@ -45,13 +47,6 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
         """Set up the undetected Firefox environment."""
         self._create_undetected_firefox_directory()
         self._patch_libxul_file()
-
-    def _get_binary_location(self) -> str:
-        """Get the binary location for the undetected Firefox."""
-        executable_path: str = self._find_platform_dependent_executable(
-            self._platform_dependent_params["firefox_execs"]
-        )
-        return executable_path
 
     def _initialize_service(self) -> None:
         """Initialize the Firefox service and remote connection."""
@@ -73,11 +68,34 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
         self._is_remote = False
 
     def _get_firefox_installation_path(self) -> str:
-        """Get the installation path of Firefox."""
-        firefox_paths: list = self._platform_dependent_params["firefox_paths"]
-        for path in firefox_paths:
-            if os.path.exists(path):
-                return path
+        """
+        Unlike _get_binary_location, this method returns the path to the
+        directory containing the Firefox binary and its libraries.
+        Normally, it's located in `/usr/lib/firefox`.
+        """
+
+        # firefox_paths: list = self._platform_dependent_params["firefox_paths"]
+        # for path in firefox_paths:
+        #    if os.path.exists(path):
+        #        return path
+
+        # Fixes #4
+        # If the first method fails, we can try to find the path by running
+        # Firefox, checking its process path, and then killing it using psutil.
+        # This is a last resort method, and might slow down the initialization.
+        for firefox_exec in self._platform_dependent_params["firefox_execs"]:
+            if shutil.which(firefox_exec):
+                process = psutil.Popen(
+                    [firefox_exec, "--headless", "--new-instance"],
+                    stdout=psutil.subprocess.DEVNULL,
+                    stderr=psutil.subprocess.DEVNULL,
+                )
+                time.sleep(0.1)  # Wait for the process to truly start
+                process_dir = os.path.dirname(process.exe())
+                # Kill the process
+                process.kill()
+                return process_dir
+
         raise FileNotFoundError("Could not find Firefox installation path")
 
     def _get_undetected_firefox_path(self) -> str:
@@ -99,7 +117,6 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
         if not os.path.exists(libxul_path):
             raise FileNotFoundError(f"Could not find {xul}")
 
-        libxul_data = open(libxul_path, "rb").read()
         with open(libxul_path, "rb") as file:
             libxul_data = file.read()
 
@@ -109,9 +126,9 @@ class Firefox(RemoteWebDriver, WebDriverMixin):
         with open(libxul_path, "wb") as file:
             file.write(libxul_data)
 
-    def _find_platform_dependent_executable(self, executables: list[str]) -> str:
-        """Find the platform-dependent executable in the given path."""
-        for executable in executables:
+    def _find_platform_dependent_executable(self) -> str:
+        """Find the platform-dependent executable for patched Firefox."""
+        for executable in self._platform_dependent_params["firefox_execs"]:
             full_path: str = os.path.join(self._undetected_path, executable)
             if os.path.exists(full_path):
                 return full_path
