@@ -25,21 +25,10 @@ DESCRIPTION = (
 LONG_DESC = open(os.path.join(DIRNAME, "README.md")).read()
 
 
-# Read the version from the __init__.py file #
-def find_version():
-    with open(
-        os.path.join(DIRNAME, "undetected_geckodriver", "__init__.py"), encoding="utf-8"
-    ) as f:
-        version_match = re.search(r"^__version__ = ['\"]([^'\"]*)['\"]", f.read(), re.M)
-        if version_match:
-            return version_match.group(1)
-        raise RuntimeError("Unable to find version string.")
-
-
 # Setup #
 setup(
     name="undetected-geckodriver",
-    version=find_version(),
+    version="1.0.6",
     packages=["undetected_geckodriver"],
     install_requires=["selenium>=4.10.0", "psutil>=5.8.0"],
     include_package_data=True,

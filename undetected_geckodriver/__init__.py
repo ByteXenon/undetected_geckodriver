@@ -9,8 +9,10 @@
     Author: Bytexenon (https://github.com/Bytexenon)
 """
 
-# Version #
-__version__ = "1.0.6"
-
 # Imports #
+import importlib.metadata
+
 from .driver import Firefox
+
+# Constants #
+__version__ = importlib.metadata.version("undetected-geckodriver")
