@@ -1,0 +1,15 @@
+name: Other
+description: For any other type of issue or inquiry not covered by the existing templates
+labels: ["question", "discussion"]
+title: "[Other]: "
+body:
+  - type: textarea
+    id: issue-description
+    attributes:
+      label: Issue Description
+      description: |
+        Describe your issue or inquiry in detail.
+        Provide as much context as possible to help us understand and address your concern.
+      placeholder: "Describe your issue or inquiry here..."
+    validations:
+      required: true

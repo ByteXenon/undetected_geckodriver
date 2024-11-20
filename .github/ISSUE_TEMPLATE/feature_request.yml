@@ -1,0 +1,26 @@
+name: Feature Request
+description: Suggest a new feature or enhancement for undetected_geckodriver
+labels: ["enhancement"]
+title: "[Feature Request]: "
+body:
+  - type: textarea
+    id: feature-description
+    attributes:
+      label: Feature Description
+      description: |
+        Describe the feature you would like to see implemented.
+        Include details on what the feature should do and why it would be useful.
+      placeholder: "Describe the feature here..."
+    validations:
+      required: true
+
+  - type: textarea
+    id: use-case
+    attributes:
+      label: Use Case
+      description: |
+        Provide one or more use cases for the feature.
+        Explain how this feature would be used in practice.
+      placeholder: "Describe the use case here..."
+    validations:
+      required: true

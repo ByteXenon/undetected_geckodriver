@@ -1,0 +1,97 @@
+name: Site Detection Report
+description: Report a website that detects the use of undetected_geckodriver
+labels: ["site-detection"]
+title: "[Site Detection]: "
+body:
+  - type: input
+    id: website-url
+    attributes:
+      label: Website URL
+      description: |
+        Please provide the URL of the website that detects the use of undetected_geckodriver.
+      placeholder: "https://www.example.com"
+    validations:
+      required: true
+
+  - type: textarea
+    id: detection-details
+    attributes:
+      label: Detection Details
+      description: |
+        Provide details on how the website detects the use of undetected_geckodriver.
+        Include any error messages, screenshots, or any other relevant information.
+      placeholder: "Add detection details here..."
+    validations:
+      required: true
+
+  - type: dropdown
+    id: operating-system
+    attributes:
+      label: Operating System
+      description: |
+        Please select the operating system you are using.
+      options:
+        - Windows
+        - macOS
+        - Linux
+        - Other (please specify below)
+    validations:
+      required: true
+
+  - type: input
+    id: os-version
+    attributes:
+      label: OS Version
+      description: |
+        Please specify the Linux distribution, macOS version, or Windows version you are using.
+        If you selected "Other" in the previous question, specify your operating system here.
+      placeholder: "e.g., Windows 10, macOS 11.2, Ubuntu 20.04"
+    validations:
+      required: true
+
+  - type: textarea
+    id: environment-details
+    attributes:
+      label: Environment Details
+      description: |
+        Please provide details about your environment, including:
+        - Python version (by running `python --version`)
+        - Selenium version (by running `pip show selenium | grep Version`)
+        - Firefox version (by running `firefox --version `)
+      placeholder: |
+        Python version: 3.12.6
+        Selenium version: 4.25.0
+        Firefox version: Mozilla Firefox 128.3.1esr
+    validations:
+      required: true
+
+  - type: textarea
+    id: additional-info
+    attributes:
+      label: Additional Information
+      description: |
+        Do you have any additional information that you think will help us solve the issue?
+      placeholder: "Add any additional information here..."
+    validations:
+      required: false
+
+  - type: textarea
+    id: logs-and-screenshots
+    attributes:
+      label: Logs and Screenshots
+      description: |
+        If applicable, please add logs and screenshots to help explain your problem.
+      placeholder: "Add logs and screenshots here..."
+    validations:
+      required: false
+
+  - type: checkboxes
+    id: using-latest-version
+    attributes:
+      label: Are you using the latest version of undetected_geckodriver?
+      description: |
+        Please try to update to the latest version before submitting a site detection report.
+        You can do this by running `pip install --upgrade undetected_geckodriver`.
+      options:
+        - label: I am using the latest version of undetected_geckodriver
+          required: true
