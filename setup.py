@@ -41,7 +41,7 @@ setup(
     name="undetected-geckodriver",
     version=find_version(),
     packages=["undetected_geckodriver"],
-    install_requires=["selenium>=4.10.0"],
+    install_requires=["selenium>=4.10.0", "psutil>=5.8.0"],
     include_package_data=True,
     description=DESCRIPTION,
     long_description=LONG_DESC,
